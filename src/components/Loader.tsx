@@ -30,13 +30,9 @@ export function Loader() {
       }`}
     >
       <div className="flex flex-col items-center gap-6">
-        <img
-          src={logo.url}
-          alt=""
-          width={140}
-          height={140}
-          className="h-32 w-32 animate-[scale-in_0.9s_cubic-bezier(0.16,1,0.3,1)] rounded-2xl object-contain mix-blend-multiply dark:mix-blend-normal dark:invert-0"
-        />
+        <div className="animate-[scale-in_0.9s_cubic-bezier(0.16,1,0.3,1)] rounded-3xl bg-white p-4 shadow-[var(--shadow-soft)]">
+          <img src={logo.url} alt="" width={112} height={112} className="h-28 w-28 object-contain" />
+        </div>
         <div className="h-px w-40 overflow-hidden bg-border">
           <div className="h-full w-full origin-left animate-[slide-in-right_1.3s_cubic-bezier(0.16,1,0.3,1)] bg-primary" />
         </div>
