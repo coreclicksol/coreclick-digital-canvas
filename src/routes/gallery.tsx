@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { galleryFilters, galleryItems } from "@/lib/site-data";
+import { galleryItems } from "@/lib/site-data";
 import { Reveal } from "@/components/Reveal";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -24,24 +24,23 @@ export const Route = createFileRoute("/gallery")({
 });
 
 function Gallery() {
-  const [filter, setFilter] = useState("All");
   const [active, setActive] = useState<number | null>(null);
 
-  const items = galleryItems.filter((i) => filter === "All" || i.cat === filter);
-  const openIndex = active === null ? -1 : items.findIndex((i) => i.id === active);
-  const current = openIndex >= 0 ? items[openIndex] : null;
+  const openIndex = active === null ? -1 : galleryItems.findIndex((i) => i.id === active);
+  const current = openIndex >= 0 ? galleryItems[openIndex] : null;
 
   useEffect(() => {
     if (!current) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setActive(null);
-      if (e.key === "ArrowRight") setActive(items[(openIndex + 1) % items.length]!.id);
+      if (e.key === "ArrowRight")
+        setActive(galleryItems[(openIndex + 1) % galleryItems.length]!.id);
       if (e.key === "ArrowLeft")
-        setActive(items[(openIndex - 1 + items.length) % items.length]!.id);
+        setActive(galleryItems[(openIndex - 1 + galleryItems.length) % galleryItems.length]!.id);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [current, openIndex, items]);
+  }, [current, openIndex]);
 
   return (
     <>
@@ -55,28 +54,9 @@ function Gallery() {
         intro="Interfaces, identities, posters and experiments — pieces of the work that never fit neatly into a case study."
       />
 
-      <div className="shell">
-        <Reveal>
-          <div className="flex flex-wrap gap-2 pb-10">
-            {galleryFilters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setFilter(f)}
-                className={`rounded-full border px-4 py-2 font-display text-sm transition-all duration-300 ${
-                  filter === f
-                    ? "border-transparent bg-primary text-primary-foreground"
-                    : "border-glass-border text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-        </Reveal>
-
-        <div className="columns-1 gap-5 pb-24 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {items.map((item, i) => (
+      <div className="shell pb-24">
+        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+          {galleryItems.map((item, i) => (
             <Reveal key={item.id} delay={(i % 6) * 60}>
               <button
                 type="button"
@@ -132,7 +112,9 @@ function Gallery() {
                   type="button"
                   aria-label="Previous"
                   onClick={() =>
-                    setActive(items[(openIndex - 1 + items.length) % items.length]!.id)
+                    setActive(
+                      galleryItems[(openIndex - 1 + galleryItems.length) % galleryItems.length]!.id,
+                    )
                   }
                   className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/10"
                 >
@@ -141,7 +123,9 @@ function Gallery() {
                 <button
                   type="button"
                   aria-label="Next"
-                  onClick={() => setActive(items[(openIndex + 1) % items.length]!.id)}
+                  onClick={() =>
+                    setActive(galleryItems[(openIndex + 1) % galleryItems.length]!.id)
+                  }
                   className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/10"
                 >
                   →

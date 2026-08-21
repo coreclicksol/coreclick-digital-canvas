@@ -18,6 +18,7 @@ function useMagnet() {
   const onMove = (e: MouseEvent) => {
     const el = ref.current;
     if (!el || window.matchMedia("(pointer: coarse)").matches) return;
+    if ("disabled" in el && (el as HTMLButtonElement).disabled) return;
     const r = el.getBoundingClientRect();
     const x = e.clientX - (r.left + r.width / 2);
     const y = e.clientY - (r.top + r.height / 2);
@@ -60,21 +61,24 @@ export function MagneticButton({
   variant = "solid",
   className = "",
   type = "button",
+  disabled,
 }: {
   children: ReactNode;
   variant?: Variant;
   className?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 }) {
   const { ref, onMove, onLeave } = useMagnet();
   return (
     <button
       type={type}
+      disabled={disabled}
       ref={ref as never}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       data-cursor="hover"
-      className={`${base} ${variants[variant]} ${className}`}
+      className={`${base} ${variants[variant]} ${className} disabled:cursor-not-allowed disabled:opacity-50`}
     >
       {children}
     </button>
