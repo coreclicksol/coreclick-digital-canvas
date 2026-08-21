@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { images, socials } from "@/lib/site-data";
 import { Reveal } from "@/components/Reveal";
 import { PageHeader } from "@/components/PageHeader";
 import { MagneticButton } from "@/components/MagneticButton";
+import { submitInquiry } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -28,11 +30,32 @@ const field =
   "w-full rounded-2xl border border-glass-border bg-transparent px-4 py-3.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary";
 
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState("");
+  const send = useServerFn(submitInquiry);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setStatus("loading");
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      service: String(formData.get("service") ?? ""),
+      budget: String(formData.get("budget") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
+    const result = await send({ data });
+    if (result.ok) {
+      setStatus("success");
+    } else {
+      setStatus("error");
+      setError(result.error || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -100,12 +123,17 @@ function Contact() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <MagneticButton type="submit">
-                Send Inquiry <span aria-hidden>→</span>
+              <MagneticButton type="submit" disabled={status === "loading"}>
+                {status === "loading" ? "Sending…" : "Send Inquiry"} <span aria-hidden>→</span>
               </MagneticButton>
-              {sent ? (
+              {status === "success" ? (
                 <p className="text-sm text-primary" role="status">
                   Thanks — your inquiry is noted. We&apos;ll be in touch shortly.
+                </p>
+              ) : null}
+              {status === "error" ? (
+                <p className="text-sm text-destructive" role="status">
+                  {error}
                 </p>
               ) : null}
             </div>
@@ -125,18 +153,18 @@ function Contact() {
             <div className="glass rounded-[2rem] p-8">
               <p className="eyebrow">Direct</p>
               <a
-                href="mailto:hello@coreclick.studio"
+                href="mailto:coreclicksol@gmail.com"
                 className="mt-3 block font-display text-lg transition-colors hover:text-primary"
               >
-                hello@coreclick.studio
+                coreclicksol@gmail.com
               </a>
               <a
-                href="https://wa.me/10000000000"
+                href="https://wa.me/923462132641"
                 target="_blank"
                 rel="noreferrer noopener"
                 className="mt-2 block font-display text-lg transition-colors hover:text-primary"
               >
-                WhatsApp — +1 000 000 0000
+                WhatsApp — +92 346 2132641
               </a>
               <div className="mt-7 flex flex-wrap gap-2">
                 {socials.map((s) => (
