@@ -20,6 +20,8 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
+  // The SDK's tool type omits `undefined` for optional fields, which trips
+  // exactOptionalPropertyTypes; the runtime shape is correct.
   tools: [
     listServices,
     listPackages,
@@ -28,5 +30,5 @@ export default defineMcp({
     getBlogPost,
     createInquiry,
     listMyInquiries,
-  ],
+  ] as never,
 });
