@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://ayadxxbguugpfbuigron.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "coreclick-digital-canvas",
+      "version": "0.1.0",
+      "title": "CoreClick Digital Canvas"
+    },
+    "tools": [
+      {
+        "name": "list_services",
+        "title": "List services",
+        "description": "List the design and development services CoreClick offers, with a short description of each.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_packages",
+        "title": "List packages",
+        "description": "List CoreClick's service packages with pricing, who each is for, and what it includes.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_projects",
+        "title": "List portfolio projects",
+        "description": "List the projects in CoreClick's portfolio, including category and the work delivered.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_blog_posts",
+        "title": "List blog posts",
+        "description": "List CoreClick journal articles with their slug, title, category, date and excerpt.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_blog_post",
+        "title": "Get blog post",
+        "description": "Read the full text of one CoreClick journal article by its slug.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Slug of the article, from list_blog_posts."
+            }
+          },
+          "required": [
+            "slug"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_inquiry",
+        "title": "Create project inquiry",
+        "description": "Submit a new project inquiry to CoreClick on behalf of the signed-in user. Ask the user for the details before calling this.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Contact name."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Contact email address."
+            },
+            "company": {
+              "type": "string",
+              "description": "Company name, if any."
+            },
+            "service": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Service needed, e.g. Web Design, UI/UX, Branding, Web Development, Graphic Design."
+            },
+            "budget": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Budget range, e.g. $1k – $3k."
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Description of the project."
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "service",
+            "budget",
+            "message"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_inquiries",
+        "title": "List my inquiries",
+        "description": "List the project inquiries the signed-in user has submitted to CoreClick.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
