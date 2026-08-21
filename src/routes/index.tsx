@@ -87,7 +87,7 @@ function Hero() {
             <dl className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-glass-border pt-8">
               {[
                 ["40+", "Projects shipped"],
-                ["12", "Countries served"],
+                ["Global", "Internationally served"],
                 ["5", "Core disciplines"],
               ].map(([n, l]) => (
                 <div key={l}>
@@ -117,7 +117,7 @@ function Hero() {
             <div className="absolute inset-x-4 bottom-4 glass rounded-2xl px-5 py-4">
               <p className="eyebrow">Currently</p>
               <p className="mt-1 font-display text-sm">
-                Designing digital identities for brands in 12 countries.
+                Designing digital identities for brands internationally.
               </p>
             </div>
           </div>

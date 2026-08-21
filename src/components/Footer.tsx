@@ -45,10 +45,10 @@ export function Footer() {
             ))}
           </ul>
           <a
-            href="mailto:hello@coreclick.studio"
+            href="mailto:coreclicksol@gmail.com"
             className="mt-6 inline-block font-display text-sm text-foreground underline-offset-4 hover:underline"
           >
-            hello@coreclick.studio
+            coreclicksol@gmail.com
           </a>
         </div>
       </div>

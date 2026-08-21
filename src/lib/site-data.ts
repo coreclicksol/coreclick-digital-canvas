@@ -109,7 +109,7 @@ export const galleryItems = [
   { id: 12, title: "Studio Process", cat: "Branding", image: about },
 ];
 
-export const galleryFilters = ["All", "Web", "UI/UX", "Branding", "Graphics", "Experiments"];
+
 
 export const posts = [
   {
