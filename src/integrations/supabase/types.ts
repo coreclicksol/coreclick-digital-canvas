@@ -13,48 +13,6 @@ export type Database = {
     PostgrestVersion: "14.15"
   }
   public: {
-          gallery_projects: {
-        Row: {
-          id: string
-          title: string
-          category: string
-          description: string
-          tags: string[]
-          images: string[]
-          featured: boolean
-          published: boolean
-          sort_order: number
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          title: string
-          category?: string
-          description?: string
-          tags?: string[]
-          images?: string[]
-          featured?: boolean
-          published?: boolean
-          sort_order?: number
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          title?: string
-          category?: string
-          description?: string
-          tags?: string[]
-          images?: string[]
-          featured?: boolean
-          published?: boolean
-          sort_order?: number
-          created_at?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
     Tables: {
       inquiries: {
         Row: {
